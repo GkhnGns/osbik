@@ -1,0 +1,4 @@
+[
+  {"id": "a1", "job_id": "j1", "employee_id": "e1", "date": "2025-01-01", "status": "hired"},
+  {"id": "a2", "job_id": "j2", "employee_id": "e2", "date": "2025-02-01", "status": "pending"}
+]
