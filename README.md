@@ -1,0 +1,2 @@
+# osbik
+Insan Kaynakları Yazılımı
