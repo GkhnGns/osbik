@@ -23,20 +23,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $um->findById($user['id']);
     }
 }
+include 'header.php';
 ?>
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Profil Duzenle</title>
-</head>
-<body>
-<h1>Profil Duzenle</h1>
-<form method="post">
-    <label>Email: <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>"></label><br>
-    <label>Yeni Sifre: <input type="password" name="password"></label><br>
-    <button type="submit">Kaydet</button>
+<h1 class="mb-4">Profil Düzenle</h1>
+<form method="post" class="w-50">
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($user['email']); ?>">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Yeni Şifre</label>
+        <input type="password" name="password" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a href="profil.php" class="btn btn-link">Geri</a>
 </form>
-<p><a href="profil.php">Geri</a></p>
-</body>
-</html>
+<?php include 'footer.php'; ?>

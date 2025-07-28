@@ -15,11 +15,7 @@ if (isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($step === 'tc') {
         $user = $um->findByTC($tc);
-        if ($user) {
-            $step = 'login';
-        } else {
-            $step = 'register';
-        }
+        $step = $user ? 'login' : 'register';
     } elseif ($step === 'login') {
         $user = $um->verifyLogin($tc, $_POST['password']);
         if ($user) {
@@ -27,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: profil.php');
             exit;
         } else {
-            $error = 'Bilgiler hatali';
+            $error = 'Bilgiler hatalı';
         }
     } elseif ($step === 'register') {
         if (!empty($_POST['email']) && !empty($_POST['password'])) {
@@ -36,45 +32,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: profil.php');
             exit;
         } else {
-            $error = 'Email ve sifre gerekli';
+            $error = 'Email ve şifre gerekli';
         }
     } elseif ($step === 'reset') {
         if (!empty($_POST['email'])) {
-            $error = 'Sifre sifirlama baglantisi gonderildi.';
+            $error = 'Şifre sıfırlama bağlantısı gönderildi.';
         }
     }
 }
+include 'header.php';
 ?>
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Giris</title>
-</head>
-<body>
-<h1>Is Arayan Giris</h1>
+<h1 class="mb-4">İş Arayan Giriş</h1>
 <?php if ($error): ?>
-<p style="color:red;"><?php echo htmlspecialchars($error); ?></p>
+<div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
 <?php endif; ?>
-<form method="post">
+<form method="post" class="w-50">
     <input type="hidden" name="step" value="<?php echo $step; ?>">
-<?php if ($step === 'tc'): ?>
-    <label>TC Kimlik No: <input type="text" name="tc" required></label>
-    <button type="submit">Devam</button>
-<?php elseif ($step === 'login'): ?>
-    <input type="hidden" name="tc" value="<?php echo htmlspecialchars($tc); ?>">
-    <label>Sifre: <input type="password" name="password" required></label>
-    <button type="submit">Giris</button>
-    <button type="submit" name="step" value="reset">Şifremi Unuttum</button>
-<?php elseif ($step === 'register'): ?>
-    <input type="hidden" name="tc" value="<?php echo htmlspecialchars($tc); ?>">
-    <label>Email: <input type="email" name="email" required></label><br>
-    <label>Sifre: <input type="password" name="password" required></label><br>
-    <button type="submit">Kaydol</button>
-<?php elseif ($step === 'reset'): ?>
-    <label>Email: <input type="email" name="email" required></label>
-    <button type="submit">Gonder</button>
-<?php endif; ?>
+    <?php if ($step === 'tc'): ?>
+        <div class="mb-3">
+            <label class="form-label">TC Kimlik No</label>
+            <input type="text" name="tc" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Devam</button>
+    <?php elseif ($step === 'login'): ?>
+        <input type="hidden" name="tc" value="<?php echo htmlspecialchars($tc); ?>">
+        <div class="mb-3">
+            <label class="form-label">Şifre</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Giriş</button>
+        <button type="submit" name="step" value="reset" class="btn btn-link">Şifremi Unuttum</button>
+    <?php elseif ($step === 'register'): ?>
+        <input type="hidden" name="tc" value="<?php echo htmlspecialchars($tc); ?>">
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Şifre</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Kaydol</button>
+    <?php elseif ($step === 'reset'): ?>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Gönder</button>
+    <?php endif; ?>
 </form>
-</body>
-</html>
+<?php include 'footer.php'; ?>

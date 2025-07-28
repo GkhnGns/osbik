@@ -1,6 +1,5 @@
 <?php
 require_once 'EmployeeManager.php';
-
 $manager = new EmployeeManager();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,37 +13,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $manager->remove($_POST['delete_id']);
     }
 }
-
 $employees = $manager->getAll();
+include 'header.php';
 ?>
-<!doctype html>
-<html>
-<head>
-    <title>Insan Kaynaklari Yazilimi</title>
-</head>
-<body>
-<h1>Calisanlar</h1>
-<table border="1" cellpadding="5" cellspacing="0">
-    <tr><th>Isim</th><th>Pozisyon</th><th>Islem</th></tr>
+<h1 class="mb-4">Çalışanlar</h1>
+<table class="table table-bordered">
+    <tr><th>İsim</th><th>Pozisyon</th><th>İşlem</th></tr>
     <?php foreach ($employees as $emp): ?>
     <tr>
         <td><?php echo htmlspecialchars($emp['name']); ?></td>
         <td><?php echo htmlspecialchars($emp['position']); ?></td>
         <td>
-            <form method="post" style="display:inline;">
+            <form method="post" class="d-inline">
                 <input type="hidden" name="delete_id" value="<?php echo $emp['id']; ?>">
-                <button type="submit">Sil</button>
+                <button type="submit" class="btn btn-danger btn-sm">Sil</button>
             </form>
         </td>
     </tr>
     <?php endforeach; ?>
 </table>
-
-<h2>Yeni Calisan Ekle</h2>
-<form method="post">
-    <label>Isim: <input type="text" name="name" required></label><br>
-    <label>Pozisyon: <input type="text" name="position" required></label><br>
-    <button type="submit">Ekle</button>
+<h2>Yeni Çalışan Ekle</h2>
+<form method="post" class="w-50">
+    <div class="mb-3">
+        <label class="form-label">İsim</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Pozisyon</label>
+        <input type="text" name="position" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Ekle</button>
 </form>
-</body>
-</html>
+<?php include 'footer.php'; ?>

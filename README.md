@@ -21,3 +21,7 @@ Is arayan kullanicilarin kaydi MySQL veritabani uzerinden yapilir. `db.php` dosy
 - parola: `3[6.QujZcN&!vAIK3[6.QujZcN&!vAIK&!vAIK3[6.Quj`
 
 Uygulamayi calistirmadan once bu veritabani ve `users` tablosunun olusturulmus oldugundan emin olun.
+
+## Yönetim Paneli
+
+`admin.php` sayfasından site başlığı ve tema rengi gibi ayarları değiştirebilirsiniz. Parola varsayılan olarak `admin123` değerindedir.

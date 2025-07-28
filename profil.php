@@ -9,19 +9,12 @@ if (!isset($_SESSION['user_id'])) {
 
 $um = new UserManager();
 $user = $um->findById($_SESSION['user_id']);
+include 'header.php';
 ?>
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Profil</title>
-</head>
-<body>
-<h1>Profil</h1>
-<p>Hosgeldiniz, <?php echo htmlspecialchars($user['email'] ?? ''); ?>!</p>
-<ul>
-    <li><a href="profil_duzenle.php">Hesap Bilgilerini Degistir</a></li>
-    <li><a href="logout.php">Cikis Yap</a></li>
+<h1 class="mb-4">Profil</h1>
+<p>Hoşgeldiniz, <?php echo htmlspecialchars($user['email'] ?? ''); ?>!</p>
+<ul class="list-unstyled mb-4">
+    <li><a href="profil_duzenle.php" class="btn btn-secondary me-2">Hesap Bilgilerini Değiştir</a></li>
+    <li><a href="logout.php" class="btn btn-link">Çıkış Yap</a></li>
 </ul>
-</body>
-</html>
+<?php include 'footer.php'; ?>
